@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
+import 'Authentication.dart';
+
 class Homepage extends StatefulWidget {
+
+  Homepage({
+    this.auth,
+    this.onSignedOut,
+  });
+
+  final AuthImplementation auth;
+  final VoidCallback onSignedOut;
 
   @override
   State<StatefulWidget> createState() {
@@ -8,8 +18,14 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomePageState extends State<Homepage> {
-  void _logoutUser() {
-    
+  
+  void _logoutUser() async{
+     try {
+        await widget.auth.signOut();
+        widget.onSignedOut();
+     } catch(e) {
+        print("Error= " + e.toString());
+     }
   }
 
   @override

@@ -5,13 +5,11 @@ import 'package:flutter/material.dart';
 import 'Homepage.dart';
 import 'Authentication.dart';
 
-void main () {
-  
+void main() {
   runApp(new BlogApp());
 }
 
 class BlogApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -20,7 +18,9 @@ class BlogApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.pink,
       ),
-      home: MappingPage(auth: Auth(), ),
+      home: MappingPage(
+        auth: Auth(),
+      ),
     );
   }
 }

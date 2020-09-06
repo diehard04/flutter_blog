@@ -36,11 +36,16 @@ class _MappingPageState extends State<MappingPage>{
 
   
   void _signedIn() {
-    authStatus = AuthStatus.signedIn;
+    setState(() {
+        authStatus = AuthStatus.signedIn;    
+    });
   }
 
-    void _signedOut() {
-    authStatus = AuthStatus.notSignedIn;
+    
+  void _signedOut() {
+    setState(() {
+    authStatus = AuthStatus.notSignedIn;     
+    });
   }
 
   @override

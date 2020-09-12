@@ -13,9 +13,8 @@ class UploadPhotoPage extends StatefulWidget {
 
 class _UploadPhotoPageState extends State<UploadPhotoPage> {
   File sampleImage;
-  final formKey = new GlobalKey<FormState>(
-
-  );
+  String _myValue;
+  final formKey = new GlobalKey<FormState>();
 
   Future getImage() async {
     var tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -23,6 +22,14 @@ class _UploadPhotoPageState extends State<UploadPhotoPage> {
     setState(() {
       sampleImage = tempImage;
     });
+  }
+
+  bool validateAndSave() {
+    final form = formKey.currentState;
+    if(form.validate()) {
+      form.save();
+      return true;
+    }
   }
 
   @override
@@ -41,15 +48,43 @@ class _UploadPhotoPageState extends State<UploadPhotoPage> {
       ),
     );
   }
-}
 
-Widget enableUpload() {
-  return new Form(
-    key: formKey,
-    child: new Column(
-      children: <Widget>[
-        
-      ],
-    ),
-  );
+  Widget enableUpload() {
+    return Container(
+      child: new Form(
+        key: formKey,
+        child: new Column(
+          children: <Widget>[
+            Image.file(
+              sampleImage,
+              height: 310.0,
+              width: 600.0,
+            ),
+            SizedBox(
+              height: 15.0,
+            ),
+            TextFormField(
+              decoration: new InputDecoration(labelText: 'Description'),
+              validator: (value) {
+                return value.isEmpty ? 'Description is required' : null;
+              },
+              onSaved: (value) {
+                return _myValue = value;
+              },
+            ),
+            SizedBox(
+              height: 15.0,
+            ),
+            RaisedButton(
+              elevation: 10.0,
+              child: Text("Add a new post"),
+              textColor: Colors.white,
+              color: Colors.pink,
+              onPressed: validateAndSave,
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }
